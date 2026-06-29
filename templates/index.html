@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breast Cancer Detection</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #121212; color: #ffffff; }
+        .card { background-color: #1e1e1e; border: 1px solid #333; color: white; }
+        .form-control { background-color: #2b2b2b; color: white; border: 1px solid #444; }
+        .form-control:focus { background-color: #333; color: white; border-color: #0d6efd; box-shadow: none; }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                
+                <div class="text-center mb-4">
+                    <img src="/static/img.jpg" alt="Breast Cancer Symptoms" class="img-fluid rounded" style="max-height: 200px; width: 100%; object-fit: cover;">
+                </div>
+
+                <div class="card p-4 shadow">
+                    <h3 class="card-title text-center mb-4">Breast Cancer Detection</h3>
+                    
+                    <form action="/predict" method="POST">
+                        <div class="mb-3">
+                            <label for="feature" class="form-label">Input Breast Cancer Features (Comma Separated)</label>
+                            <input type="text" class="form-control" id="feature" name="feature" placeholder="Paste 30 features here..." required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Predict</button>
+                    </form>
+
+                    {% if message %}
+                        <div class="mt-4 text-center">
+                            <h4>Status Result: 
+                                <span class="{% if 'Not' in message %}text-info{% else %}text-danger{% endif %}">
+                                    {{ message }}
+                                </span>
+                            </h4>
+                            
+                            {% if image_file %}
+                                <div class="mt-3">
+                                    <img src="/static/{{ image_file }}" alt="Result Status" class="img-fluid rounded" style="max-width: 150px; height: auto;">
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
